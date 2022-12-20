@@ -15,12 +15,12 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
-            //'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            //'base_dir' => realpathV($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
             'base_dir' => $this->truepath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
     /**
-     * This function is to replace PHP's extremely buggy realpath().
+     * This function is to replace PHP's extremely buggy realpathV().
      * @param string The original path, can be relative etc.
      * @return string The resolved path, it might not exist.
      */
