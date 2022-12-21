@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\dto\ArticleDTO;
+use AppBundle\Form\ArticleType;
 
 class ArticleControler extends Controller
 {
@@ -42,30 +43,35 @@ class ArticleControler extends Controller
      * @Route("/article", methods={"PUT"})
      */
     public function create(Request $request){
+        $article = new Article();
+        $data=json_decode($request->getContent(),true);
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->submit($data);
         
-        $data=json_decode($request->getContent());
-        
-        
-        return $this->json($data);
+        return $this->json(ArticleDTO::make($article),201);
         
     }
     /**
      * @Route("/article", methods={"PATCH"})
      */
     public function modify(Request $request){
-        $data = new Article();
-        $data->setTitle("the patch controler");
-        $data->setCreation(new \DateTime());
-        return $this->json(ArticleDTO::make($data));
+        $article = new Article();
+        $data=json_decode($request->getContent(),true);
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->submit($data);
+        
+        return $this->json(ArticleDTO::make($article),201);
     }
     /**
      * @Route("/article", methods={"DELETE"})
      */
     public function delete(Request $request){
-        $data = new Article();
-        $data->setTitle("the delete controler");
-        $data->setCreation(new \DateTime());
-        return $this->json(ArticleDTO::make($data));
+        $article = new Article();
+        $data=json_decode($request->getContent(),true);
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->submit($data);
+        
+        return $this->json(ArticleDTO::make($article),201);
     }
     
 }
