@@ -1,4 +1,6 @@
 <?php
+use Symfony\Component\Translation\Tests\StringClass;
+
 /**
  * Fonctions de substitution
  * remplace les fonctions désactivées du serveur
@@ -74,4 +76,7 @@ function setlocaleV($category, $locale){
 }
 function umaskV($mask=null){
     return 0;
+}
+function rmdirV( $directory, $context = null){
+     return false;   
 }

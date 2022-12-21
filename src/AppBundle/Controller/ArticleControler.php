@@ -4,8 +4,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\dto\ArticleDTO;
@@ -43,10 +42,11 @@ class ArticleControler extends Controller
      * @Route("/article", methods={"PUT"})
      */
     public function create(Request $request){
-        $data = new Article();
-        $data->setTitle("the put controler");
-        $data->setCreation(new \DateTime());
-        return $this->json(ArticleDTO::make($data));
+        
+        $data=json_decode($request->getContent());
+        
+        
+        return $this->json($data);
         
     }
     /**

@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\dto\ArticleDTO;
 
 /**
  *
@@ -43,6 +44,16 @@ class Article
      * @var \DateTime
      */
     private $creation = null;
+    
+    public static function make($a){
+        $o = new Article();
+        $o->setId($a->id);
+        $o->setText($a->text);
+        $o->setTitle($a->title);
+        $o->setCreation($a->creation);
+        
+        return $o;
+    }
 
     /**
      *
