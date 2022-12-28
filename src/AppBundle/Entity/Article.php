@@ -19,7 +19,7 @@ class Article
      *
      * @ORM\Column(type = "integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @var integer
      */
     private $id = 0;
@@ -44,7 +44,29 @@ class Article
      * @var \DateTime
      */
     private $creation = null;
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="articles")
+     * @var \DateTime
+     */
+    private $author ; 
     
+    /**
+     * @return DateTime
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param DateTime $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
     public static function make($a){
         $o = new Article();
         $o->setId($a->id);
