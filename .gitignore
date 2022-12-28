@@ -18,5 +18,5 @@
 *.png
 *.ico
 *.yml
-
+*.bkp
 !/vendor/Symfony/../ErrorHandler.php
