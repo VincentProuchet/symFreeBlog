@@ -20,16 +20,11 @@ class UserType extends AbstractType
     public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add("id",IntegerType::class,['required'=>false],'empty_data='>0)
+        ->add("id",IntegerType::class,['required'=>true],'empty_data='>0)
         ->add('name',TextType::class)
         ->add('firstName',TextType::class)
         ->add('birth',DateTimeType::class)
-        ->add('articles',CollectionType::class,
-            [
-                'required'=>false,
-                'entry_type'=> ArticleType::class
-                
-            ])
+        
         ;
         
     }

@@ -4,14 +4,18 @@ namespace AppBundle\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
+
+
 /**
- * 
+ *
  * @author Vincent
  *@ORM\Entity
  *@ORM\Table(name= "users")
  */
-class User
+class User   
 {
+
     /**
      *
      * @ORM\Column(type = "integer")
@@ -20,36 +24,42 @@ class User
      * @var integer
      */
     private $id = 0;
-    
+
     /**
      *
      * @ORM\Column(type="string", length=100)
      * @var string
      */
-    private $name =  'Itsumi';
+    private $name = 'Itsumi';
+
     /**
      *
      * @ORM\Column(type="string", length=100)
      * @var string
      */
-    private $firstName =  'Itsumi';
+    private $firstName = 'Mario';
+
     /**
      *
      * @ORM\Column(type ="datetime")
      * @var \DateTime
      */
     private $birth = null;
-    
+
     /**
-     * @ORM\OneToMany(targetEntity="Article", mappedBy="author")
+     *
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="author",fetch="EXTRA_LAZY")
      * @var Article
      */
     private $articles;
-    
-    public function __construct(){
+
+    public function __construct()
+    {
         $this->articles = new ArrayCollection();
     }
+
     /**
+     *
      * @return number
      */
     public function getId()
@@ -58,6 +68,7 @@ class User
     }
 
     /**
+     *
      * @return string
      */
     public function getName()
@@ -66,6 +77,7 @@ class User
     }
 
     /**
+     *
      * @return string
      */
     public function getFirstName()
@@ -74,6 +86,7 @@ class User
     }
 
     /**
+     *
      * @return DateTime
      */
     public function getBirth()
@@ -82,6 +95,7 @@ class User
     }
 
     /**
+     *
      * @return \AppBundle\Entity\Article
      */
     public function getArticles()
@@ -90,6 +104,7 @@ class User
     }
 
     /**
+     *
      * @param number $id
      */
     public function setId($id)
@@ -98,6 +113,7 @@ class User
     }
 
     /**
+     *
      * @param string $name
      */
     public function setName($name)
@@ -106,6 +122,7 @@ class User
     }
 
     /**
+     *
      * @param string $firstName
      */
     public function setFirstName($firstName)
@@ -114,6 +131,7 @@ class User
     }
 
     /**
+     *
      * @param DateTime $birth
      */
     public function setBirth($birth)
@@ -122,6 +140,7 @@ class User
     }
 
     /**
+     *
      * @param \AppBundle\Entity\Article $articles
      */
     public function setArticles($articles)
@@ -129,6 +148,22 @@ class User
         $this->articles = $articles;
     }
 
-    
+    /**
+     *
+     * @param Mixed $a
+     * @return null|\AppBundle\Entity\User
+     */
+    public static function make($a)
+    {
+        $o = new User();
+        if ($a == null) {
+            return $o;
+        }
+        $o->setId($a->id);
+        $o->setName($a->name);
+        $o->setFirstName($a->firstName);
+        $o->setBirth(DTO::convertDateTime($a->birth));
+        return $o;
+    }
 }
 

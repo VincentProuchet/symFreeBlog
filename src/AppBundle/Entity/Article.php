@@ -3,7 +3,9 @@ namespace AppBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\dto\ArticleDTO;
+
+
+
 
 /**
  *
@@ -11,7 +13,7 @@ use AppBundle\dto\ArticleDTO;
  *@ORM\Entity
  *@ORM\Table(name = "article")
  */
-class Article
+class Article  
 
 {
 
@@ -29,7 +31,7 @@ class Article
      * @ORM\Column(type="string", length=100)
      * @var string
      */
-    private $title =  'nope';
+    private $title = 'nope';
 
     /**
      * * @ORM\Column(type="text")
@@ -41,18 +43,22 @@ class Article
     /**
      *
      * @ORM\Column(type ="datetime")
-     * @var \DateTime
+     * @var \Symfony\Component\Validator\Constraints\DateTime
      */
     private $creation = null;
+
     /**
      *
      * @ORM\ManyToOne(targetEntity="User",inversedBy="articles")
-     * @var \DateTime
+     * @var User
      */
-    private $author ; 
-    
+    private $author;
+
+    private static $form = null;
+
     /**
-     * @return DateTime
+     *
+     * @return User
      */
     public function getAuthor()
     {
@@ -60,20 +66,30 @@ class Article
     }
 
     /**
-     * @param DateTime $author
+     *
+     * @param User $author
      */
     public function setAuthor($author)
     {
         $this->author = $author;
     }
 
-    public static function make($a){
+    /**
+     * convertit le json decode en une instance de la classe Article
+     * @param Mixed $a
+     * @return \AppBundle\Entity\Article
+     */
+    public static function make($a)
+    {
         $o = new Article();
+        if ($a == null) {
+            return $o;
+        }
         $o->setId($a->id);
         $o->setText($a->text);
         $o->setTitle($a->title);
-        $o->setCreation($a->creation);
-        
+        $o->setCreation(DTO::convertDateTime($a->creation));
+        $o->setAuthor(User::make($a->author));
         return $o;
     }
 

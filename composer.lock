@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2277e44fe7b30d2e4eb726dec46bea8b",
+    "content-hash": "a1894f4c47b511e78555a081f906dc4e",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2408,16 +2408,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.4.49",
+            "version": "v3.4.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "ba0e346e3ad11de4a307fe4fa2452a3656dcc17b"
+                "reference": "83093d5448a7b90fd4cbcce38580ae53898f506f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/ba0e346e3ad11de4a307fe4fa2452a3656dcc17b",
-                "reference": "ba0e346e3ad11de4a307fe4fa2452a3656dcc17b",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/83093d5448a7b90fd4cbcce38580ae53898f506f",
+                "reference": "83093d5448a7b90fd4cbcce38580ae53898f506f",
                 "shasum": ""
             },
             "require": {
@@ -2560,7 +2560,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v3.4.49"
+                "source": "https://github.com/symfony/symfony/tree/v3.4.47"
             },
             "funding": [
                 {
@@ -2576,7 +2576,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-19T12:07:19+00:00"
+            "time": "2020-11-27T08:43:16+00:00"
         },
         {
             "name": "twig/twig",
@@ -2793,11 +2793,11 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.9"
+        "php": ">=5.6"
     },
     "platform-dev": [],
     "platform-overrides": {
         "php": "5.6"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

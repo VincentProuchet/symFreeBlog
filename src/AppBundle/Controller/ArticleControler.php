@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\dto\ArticleDTO;
 use AppBundle\Form\ArticleType;
+use AppBundle\Form\UserType;
 
 class ArticleControler extends Controller
 {
@@ -42,13 +44,11 @@ class ArticleControler extends Controller
      */
     public function getOne($id, Request $request)
     {
-        $data = new Article();
-        $data->setId($id);
-        $data->setText("get one give you a one and only one article JSON object");
-        $data->setTitle("a nice title");
-        $data->setCreation(\DateTime::createFromFormat("Y-m-d", "2022-10-28"));
-        
-        
+        $em = $this->getDoctrine()->getManagerForClass(Article::class);
+        $data =  $em->find(Article::class, $id);        
+        if($data== null){
+            $data = new Article();
+        }
         return $this->json(ArticleDTO::make($data));
     }
 
@@ -59,14 +59,23 @@ class ArticleControler extends Controller
     public function create(Request $request)
     {
         // on récupére l'entitity Manager
-        $em = $this->getDoctrine()->getManagerForClass(Article::class);
+        $em = $this->getDoctrine()->getManager();
         $article = new Article();
-        $data = json_decode($request->getContent(), true);
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->submit($data);
+        $user = null;
+        $now = new \DateTime();        
+        $article = Article::make(json_decode($request->getContent(), false));
+        $existing =  $em->find(Article::class, $article->getId());
+        // si l'article existe déjà
+        if($existing!= null){
+            return $this->json(ArticleDTO::make($existing), 405);
+        }
+        $user = $em->find(User::class,$article->getAuthor()->getId());
+        
+        $article->setAuthor($user);
+
+        $article->setCreation($now);
         $em->persist($article);
-       //$em->flush();
-                    
+        $em->flush();
         return $this->json(ArticleDTO::make($article), 201);
     }
 

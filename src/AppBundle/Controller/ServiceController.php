@@ -18,7 +18,7 @@ class ServiceController extends Controller
     public function serviceInfo(Request $request){
         return $this->render('default/serviceinfo.twig', [
             //'base_dir' => realpathV($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-            'base_dir' => realpathV($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
             'info' => phpinfo()
         ]);
     }
