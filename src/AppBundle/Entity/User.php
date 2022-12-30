@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\dto\UserDTO;
 
 
 
@@ -150,8 +151,8 @@ class User
 
     /**
      *
-     * @param Mixed $a
-     * @return null|\AppBundle\Entity\User
+     * @param null|UserDTO $a
+     * @return User
      */
     public static function make($a)
     {

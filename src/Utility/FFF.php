@@ -1,4 +1,5 @@
 <?php
+namespace  Utility;
 
 /**
  * Free forbiden functions
@@ -29,11 +30,11 @@ class FFF
      *
      * @var string
      */
-    public static $MODE = FFF::MODE_NORMAL;
+    public static $MODE = self::MODE_NORMAL;
 
-    public static $MODE_NORMAL = "NORMAL";
+    const MODE_NORMAL = "NORMAL";
 
-    public static $MODE_FREE = "FREE";
+    const MODE_FREE = "FREE";
 
     /**
      * obfusque la fonction realpath d'origine de php
@@ -46,7 +47,7 @@ class FFF
     public static function realpath($path)
     {
         switch (FFF::$MODE) {
-            case FFF::$MODE_FREE:
+            case FFF::MODE_FREE:
                 FFF::realpathV($path);
                 break;
             default:
@@ -54,8 +55,93 @@ class FFF
         }
     }
 
+   
+    /**
+     *
+     * @param mixed $var
+     */
+    public static function putenv($var)
+    {
+        switch (FFF::$MODE) {
+            case FFF::MODE_FREE:
+                $args = explode('=', $var, 2);
+                $_ENV[$args[0]] = $args[1];
+                break;
+            default:
+                return putenv($var);
+        }
+    }
+
+    /**
+     *
+     * @param string $varname
+     * @param string $newvalue
+     * @return string
+     */
+    public static function ini_set($varname, $newvalue)
+    {
+        switch (FFF::$MODE) {
+            case FFF::MODE_FREE:
+                return ini_get($varname);
+                break;
+            default:
+                return ini_set($varname, $newvalue);
+        }
+    }
+
+    /**
+     *
+     * @param string $category
+     * @param string $locale
+     * @return boolean
+     */
+    public static function setlocale($category, $locale)
+    {
+        switch (FFF::$MODE) {
+            case FFF::MODE_FREE:
+                return false;
+                break;
+            default:
+                return setlocale($category, $locale);
+        }
+    }
+
+    /**
+     *
+     * @param number $mask
+     * @return number
+     */
+    public static function umask($mask = null)
+    {
+        switch (FFF::$MODE) {
+            case FFF::MODE_FREE:
+                return 0;
+                break;
+            default:
+                return umask($mask);
+        }
+    }
+
+    /**
+     *
+     * @param string $directory
+     * @param mixed $context
+     * @return boolean
+     */
+    public static function rmdir($directory, $context = null)
+    {
+        switch (FFF::$MODE) {
+            case FFF::MODE_FREE:
+                return false;
+                break;
+            default:
+                return rmdir($directory, $context);
+        }
+    }
     /**
      * Custom realpath
+     * j'y mis les traitement ici
+     * pour garder la fonction de tri la plus simple possible
      *
      * @param string $path
      * @return string
@@ -72,7 +158,7 @@ class FFF
         $startWithLetterDir = isset($matches[0]) ? $matches[0] : false;
         // Get and filter empty sub paths
         $subPaths = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'mb_strlen');
-
+        
         $absolutes = [];
         foreach ($subPaths as $subPath) {
             if ('.' === $subPath) {
@@ -94,91 +180,9 @@ class FFF
             }
             $absolutes[] = $subPath;
         }
-
+        
         return (($startWithSeparator ? DIRECTORY_SEPARATOR : $startWithLetterDir) ? $startWithLetterDir . DIRECTORY_SEPARATOR : '') . implode(DIRECTORY_SEPARATOR, $absolutes);
     }
-
-    /**
-     *
-     * @param mixed $var
-     */
-    public static function putenv($var)
-    {
-        switch (FFF::$MODE) {
-            case FFF::$MODE_FREE:
-                $args = explode('=', $var, 2);
-                $_ENV[$args[0]] = $args[1];
-                break;
-            default:
-                return putenv($var);
-        }
-    }
-
-    /**
-     *
-     * @param string $varname
-     * @param string $newvalue
-     * @return string
-     */
-    public static function ini_set($varname, $newvalue)
-    {
-        switch (FFF::$MODE) {
-            case FFF::$MODE_FREE:
-                return ini_get($varname);
-                break;
-            default:
-                return ini_set($varname, $newvalue);
-        }
-    }
-
-    /**
-     *
-     * @param string $category
-     * @param string $locale
-     * @return boolean
-     */
-    public static function setlocale($category, $locale)
-    {
-        switch (FFF::$MODE) {
-            case FFF::$MODE_FREE:
-                return false;
-                break;
-            default:
-                return setlocale($category, $locale);
-        }
-    }
-
-    /**
-     *
-     * @param number $mask
-     * @return number
-     */
-    public static function umask($mask = null)
-    {
-        switch (FFF::$MODE) {
-            case FFF::$MODE_FREE:
-                return 0;
-                break;
-            default:
-                return umask($mask);
-        }
-    }
-
-    /**
-     *
-     * @param string $directory
-     * @param mixed $context
-     * @return boolean
-     */
-    public static function rmdir($directory, $context = null)
-    {
-        switch (FFF::$MODE) {
-            case FFF::$MODE_FREE:
-                return false;
-                break;
-            default:
-                return rmdir($directory,$context);
-        }
-    }
+    
 }
 

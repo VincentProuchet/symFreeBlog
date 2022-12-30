@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\dto\ArticleDTO;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\UserType;
+use AppBundle\dto\UserDTO;
 
 class ArticleControler extends Controller
 {
@@ -21,13 +22,11 @@ class ArticleControler extends Controller
      */
     public function getAll()
     {
-        $data = [
-            ArticleDTO::make(new Article()),
-            ArticleDTO::make(new Article()),
-            ArticleDTO::make(new Article()),
-            ArticleDTO::make(new Article()),
-            ArticleDTO::make(new Article())
-        ];
+        $em = $this->getDoctrine()->getManagerForClass(Article::class);
+        $data = $em->find(Article::class, 72);
+        if ($data != null) {
+            return $this->json(ArticleDTO::make($data));
+        }
         return $this->json($data);
     }
 
@@ -45,8 +44,8 @@ class ArticleControler extends Controller
     public function getOne($id, Request $request)
     {
         $em = $this->getDoctrine()->getManagerForClass(Article::class);
-        $data =  $em->find(Article::class, $id);        
-        if($data== null){
+        $data = $em->find(Article::class, $id);
+        if ($data == null) {
             $data = new Article();
         }
         return $this->json(ArticleDTO::make($data));
@@ -62,15 +61,16 @@ class ArticleControler extends Controller
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
         $user = null;
-        $now = new \DateTime();        
+        $now = new \DateTime();
         $article = Article::make(json_decode($request->getContent(), false));
-        $existing =  $em->find(Article::class, $article->getId());
+        $existing = $em->find(Article::class, $article->getId());
         // si l'article existe déjà
-        if($existing!= null){
+        if ($existing != null) {
             return $this->json(ArticleDTO::make($existing), 405);
         }
-        $user = $em->find(User::class,$article->getAuthor()->getId());
-        
+        $user = $em->find(User::class, $article->getAuthor()
+            ->getId());
+
         $article->setAuthor($user);
 
         $article->setCreation($now);
@@ -85,12 +85,32 @@ class ArticleControler extends Controller
      */
     public function modify(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $article = new Article();
-        $data = json_decode($request->getContent(), true);
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->submit($data);
-
-        return $this->json(ArticleDTO::make($article), 201);
+        $article = Article::make(json_decode($request->getContent(), false));
+        $existing = $em->find(Article::class, $article->getId());
+        // si l'article n'existe pas déjà
+        if (is_null($existing)) {
+            // nvoyer une erreur
+            return $this->json(ArticleDTO::make($article), 404);
+        }
+        $user = $em->find(User::class, $article->getAuthor()
+            ->getId());
+        
+        //return $this->json(UserDTO::make($user), 404);
+        
+        $article->setAuthor($user);
+                     
+        $existing->setTitle($article->getTitle());
+        $existing->setText($article->getText());
+        $existing->setAuthor($user);
+        
+        
+        
+        
+        $em->persist($existing);
+        $em->flush();
+        return $this->json(ArticleDTO::make($existing), 200);
     }
 
     /**
@@ -99,12 +119,19 @@ class ArticleControler extends Controller
      */
     public function delete(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $article = new Article();
-        $data = json_decode($request->getContent(), true);
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->submit($data);
-
-        return $this->json(ArticleDTO::make($article), 201);
+        $article = Article::make(json_decode($request->getContent(), false));
+        $existing = $em->find(Article::class, $article->getId());
+        // si l'article n'existe pas déjà
+        if (is_null($existing)) {
+            // nvoyer une erreur
+            return $this->json(ArticleDTO::make($article), 404);
+        }
+        
+        $em->remove($existing);
+        $em->flush();
+        return $this->json(ArticleDTO::make($existing), 200);
     }
 }
 

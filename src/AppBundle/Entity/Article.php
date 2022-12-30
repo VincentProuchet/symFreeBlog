@@ -28,7 +28,7 @@ class Article
 
     /**
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      * @var string
      */
     private $title = 'nope';
