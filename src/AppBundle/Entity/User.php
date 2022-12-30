@@ -6,15 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\dto\UserDTO;
 
-
-
 /**
  *
  * @author Vincent
  *@ORM\Entity
  *@ORM\Table(name= "users")
  */
-class User   
+class User
 {
 
     /**

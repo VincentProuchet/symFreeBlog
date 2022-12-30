@@ -13,8 +13,9 @@ namespace AppBundle\Entity;
 class DTO
 {
 
-    private static $dateTimeFormat = "Y-m-d G:i:s.u";
+    private static $dateTimeFormat = "Y-m-d H:i:s.u";
     private static $dateFormat = "Y-m-d(space)H:i:s.u";
+    private static $StoringTimezone = "UTC";
     /**
      * créer un dateTime depuis l'ojbjet donné par jsonDecode
      * @param \DateTime $a
@@ -22,12 +23,8 @@ class DTO
     public static function convertDateTime($a)
     {
         
-        try {
-            //$a = Date(DTO::$dateFormat, $a->date);
-            //$a =  \DateTime::createFromFormat(DTO::$dateTimeFormat,$a->date);
-            $a = \DateTimeImmutable::createFromFormat(DTO::$dateTimeFormat ,$a->date);
-            return $a;
-            
+        try {            
+            return \DateTimeImmutable::createFromFormat(DTO::$dateTimeFormat ,$a->date,new \DateTimeZone(DTO::$StoringTimezone));            
         } catch (\Exception $e) {
             return new \DateTime();
         }

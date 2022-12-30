@@ -3,9 +3,7 @@ namespace AppBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-
-
-
+use AppBundle\dto\ArticleDTO;
 
 /**
  *
@@ -13,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *@ORM\Entity
  *@ORM\Table(name = "article")
  */
-class Article  
+class Article
 
 {
 
@@ -56,6 +54,32 @@ class Article
 
     private static $form = null;
 
+    public function __construct()
+    {
+        $this->creation = new \DateTime();
+        $this->author = new User();
+    }
+
+    /**
+     * convertit le json decode en une instance de la classe Article
+     *
+     * @param ArticleDTO|null $a
+     * @return Article
+     */
+    public static function make($a)
+    {
+        $o = new Article();
+        if ($a == null) {
+            return $o;
+        }
+        $o->setId($a->id);
+        $o->setText($a->text);
+        $o->setTitle($a->title);
+        $o->setCreation(DTO::convertDateTime($a->creation));
+        $o->setAuthor(User::make($a->author));
+        return $o;
+    }
+
     /**
      *
      * @return User
@@ -72,25 +96,6 @@ class Article
     public function setAuthor($author)
     {
         $this->author = $author;
-    }
-
-    /**
-     * convertit le json decode en une instance de la classe Article
-     * @param Mixed $a
-     * @return \AppBundle\Entity\Article
-     */
-    public static function make($a)
-    {
-        $o = new Article();
-        if ($a == null) {
-            return $o;
-        }
-        $o->setId($a->id);
-        $o->setText($a->text);
-        $o->setTitle($a->title);
-        $o->setCreation(DTO::convertDateTime($a->creation));
-        $o->setAuthor(User::make($a->author));
-        return $o;
     }
 
     /**

@@ -59,10 +59,12 @@ class ArticleControler extends Controller
     {
         // on récupére l'entitity Manager
         $em = $this->getDoctrine()->getManager();
-        $article = new Article();
+       
         $user = null;
-        $now = new \DateTime();
+        //$now = new \DateTime();
+        // transformation du body en objet 
         $article = Article::make(json_decode($request->getContent(), false));
+       
         $existing = $em->find(Article::class, $article->getId());
         // si l'article existe déjà
         if ($existing != null) {
@@ -73,7 +75,7 @@ class ArticleControler extends Controller
 
         $article->setAuthor($user);
 
-        $article->setCreation($now);
+        //$article->setCreation($now);
         $em->persist($article);
         $em->flush();
         return $this->json(ArticleDTO::make($article), 201);
