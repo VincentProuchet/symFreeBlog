@@ -29,14 +29,14 @@ class Article
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $title = 'nope';
+    private $title = null;
 
     /**
      * * @ORM\Column(type="text")
      *
      * @var string
      */
-    private $text = "nothing to show";
+    private $text = null;
 
     /**
      *
@@ -50,9 +50,8 @@ class Article
      * @ORM\ManyToOne(targetEntity="User",inversedBy="articles")
      * @var User
      */
-    private $author;
+    private $author = null;
 
-    private static $form = null;
 
     public function __construct()
     {
@@ -93,7 +92,7 @@ class Article
      *
      * @param User $author
      */
-    public function setAuthor($author)
+    public function setAuthor(User $author)
     {
         $this->author = $author;
     }
