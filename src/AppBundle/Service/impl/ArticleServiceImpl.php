@@ -6,6 +6,7 @@ use AppBundle\Entity\Article;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  *
@@ -17,18 +18,37 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class ArticleServiceImpl implements ArticleService
 {
-
+    /**
+     * 
+     * @var EntityManagerInterface
+     */
     private $em;
-
+    /**
+     * 
+     * @var string
+     */
     private $articleClass = Article::class;
-
-    private $articleRepo;
-
+    /**
+     * 
+     * @var string
+     */
     private $userClass = User::class;
 
+    /**
+     * 
+     * @var ObjectRepository
+     */
+    private $articleRepo;
+    /**
+     * 
+     * @var ObjectRepository
+     */
     private $userRepo;
 
     /**
+     * Constructor
+     * autowwired
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -87,14 +107,14 @@ class ArticleServiceImpl implements ArticleService
      * @see \AppBundle\Service\ArticleService::update()
      */
     public function update(Article $a)
-    {
-        
+    {   
         $existing = $this->articleRepo->find($a->getId());
         $existing->setTitle($a->getTitle());
-        $existing->setText($a->getText());
-        
+        $existing->setText($a->getText());    
+        // controle 'intégrité des données
         $this->validArticle($existing);
-        
+        // flush sauvegarde les modification faites sur les objets 
+        // associés à la base de données
         $this->em->flush($existing);
         return $existing;
     }
@@ -118,7 +138,7 @@ class ArticleServiceImpl implements ArticleService
     {
         $existing = $this->articleRepo->find($a->getId());
         $this->em->remove($existing);
-        
+        $this->em->flush();
         return $existing;
     }
 

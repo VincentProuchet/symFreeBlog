@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+	<h1>Hello World !</h1>
+
+	<h2>Qui est-tu ?</h2>
+	<div class="container m-2">Vincent Prouchet. Je suis un ancien
+		technicien de maintenance reconvertit en programmeur par l'obtention
+		d'un BTS SIO Comme ça ne suffisait pas pour être embauché j'ai aussi
+		fait une formation de spécialisation de développeur java fullstack,
+		par ailleur je cherche une alternance pour 2023 dans le but d'obtenir
+		un RNCP de niveau 6 en développeur JAVA.</div>
+	<h3>Ce site n'est pas vraiment digne d'un développeur</h3>
+	<div class="accordion" id="accordionExample">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingOne">
+				<button class="accordion-button" type="button"
+					data-bs-toggle="collapse" data-bs-target="#collapseOne"
+					aria-expanded="true" aria-controls="collapseOne">
+					<h4>Vous avez raison</h4>
+				</button>
+			</h2>
+			<div id="collapseOne" class="accordion-collapse collapse show"
+				aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					J'avais commencé le développement d'un CMS php mais j'ai dût mettre
+					le projet en pause pour me consacrer pleinement à la formation
+					Java. <br> Maintenant qu'elle est terminée, en plus de la
+					recherche d'alternance, je développe un nouveau CMS depuis le début
+					en appliquant le nouveau savoir acquis <br> le code source est
+					disponible sur mon <a
+						href="https://github.com/VincentProuchet/symFreeBlog">Github</a>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingTwo">
+				<button class="accordion-button collapsed" type="button"
+					data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+					aria-expanded="false" aria-controls="collapseTwo">
+					<h4>Tu utilise un workframe ?</h4>
+				</button>
+			</h2>
+			<div id="collapseTwo" class="accordion-collapse collapse"
+				aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					Oui ! <br> Symfony. en 3.4 pour être compatible avec php 5.6;
+					la seule version de php que me sert le service des pages
+					personnelle de FREE.<br> il est modifié pour être compatible
+					avec les restrictions sur les fonction php, car FREE désactive
+					certaines fonctions.<br> Et Bootstrap5 parce que pourquoi pas
+					?
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button"
+					data-bs-toggle="collapse" data-bs-target="#collapseThree"
+					aria-expanded="false" aria-controls="collapseThree">
+					<h4>C'est donc tout ce que tu peux nous montrer ?</h4>
+				</button>
+			</h2>
+			<div id="collapseThree" class="accordion-collapse collapse"
+				aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">hélas oui il ne m'est pas possible
+					d'ouvrir les commandes de l'api au public tant que la sécurité
+					n'est pas en place c'est une question juridique, je n'ai pas
+					vraiment envie que ma page perso se fasse fermer</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading4">
+				<button class="accordion-button collapsed" type="button"
+					data-bs-toggle="collapse" data-bs-target="#collapse4"
+					aria-expanded="false" aria-controls="collapse4">
+					<h4>Attend ! Tu est développeur JAVA et là tu fais du PHP ?</h4>
+				</button>
+			</h2>
+			<div id="collapse4" class="accordion-collapse collapse"
+				aria-labelledby="heading4" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					Je fais avec les outils qui me sont accessibles.<br> Si
+					j'avais les moyens de me payer un hébergement, je choisirais du
+					JAVA.<br> Il peux sembler contre-intuitif de changer de
+					langage de programmation, de mon point de vue ce sont des outils et
+					je vois celà comme l'opportunitée de montrer que je peux transposer
+					ce que j'ai appris en JAVA sur à peu près tout.
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
