@@ -4,12 +4,13 @@
 // ils sont là pour vous permettre de voir les erreurs levées par symfony
 // parce que l'autoloader des classes échoue si le framework n'est pas totalement initialisé
 
-$symfony_debug_dir ="vendor\\symfony\\symfony\\src\\Symfony\\Component\Debug\\";
-$symfony_exception_dir = $symfony_debug_dir.'Exception\\';
-$symfony_fatalerrorHandler_dir = $symfony_debug_dir.'FatalErrorHandler\\';
+$symfony_debug_dir =dirname(__FILE__)."/vendor/symfony/symfony/src/Symfony/Component/Debug/";
+$symfony_exception_dir = $symfony_debug_dir.'Exception/';
+$symfony_fatalerrorHandler_dir = $symfony_debug_dir.'FatalErrorHandler/';
+$utility_dir =dirname(__FILE__)."/Utility/";
 
+require_once $utility_dir."FFF.php" ;
 require_once $symfony_debug_dir.'ExceptionHandler.php';
-
 
 require_once $symfony_exception_dir.'FlattenException.php';
 require_once $symfony_exception_dir.'FatalErrorException.php';
@@ -19,7 +20,7 @@ require_once $symfony_exception_dir.'FatalErrorException.php';
  
 require_once  $symfony_fatalerrorHandler_dir.'FatalErrorHandlerInterface.php';
 require_once  $symfony_fatalerrorHandler_dir.'UndefinedFunctionFatalErrorHandler.php';
-require_once  $symfony_fatalerrorHandler_dir.'\UndefinedMethodFatalErrorHandler.php';
+require_once  $symfony_fatalerrorHandler_dir.'UndefinedMethodFatalErrorHandler.php';
 require_once  $symfony_fatalerrorHandler_dir.'ClassNotFoundFatalErrorHandler.php';
 // Fonction de substitution
 // remplace les fonctions désactivées du serveur

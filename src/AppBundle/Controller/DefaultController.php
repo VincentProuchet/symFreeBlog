@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Utility\FFF;
+use Utility;
+
 
 
 
@@ -19,7 +20,7 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             //'base_dir' => realpathV($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-            'base_dir' => FFF::realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'base_dir' => Utility\FFF::realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
     /**
@@ -31,7 +32,7 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/aboutme.html.twig', [
             //'base_dir' => realpathV($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-            'base_dir' => FFF::realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'base_dir' => Utility\FFF::realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
    

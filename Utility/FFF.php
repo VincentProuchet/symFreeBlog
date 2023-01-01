@@ -1,6 +1,5 @@
 <?php
-namespace  Utility;
-
+namespace Utility;
 /**
  * Free forbiden functions
  * 
@@ -30,7 +29,7 @@ class FFF
      *
      * @var string
      */
-    public static $MODE = self::MODE_NORMAL;
+    public static $MODE = self::MODE_FREE;
 
     const MODE_NORMAL = "NORMAL";
 
@@ -48,7 +47,7 @@ class FFF
     {
         switch (FFF::$MODE) {
             case FFF::MODE_FREE:
-                FFF::realpathV($path);
+                return FFF::realpathV($path);
                 break;
             default:
                 return realpath($path);
