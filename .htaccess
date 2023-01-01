@@ -2,12 +2,6 @@
 php56 1
 </IfDefine>
 
-<Files ".ht*">
-Order allow,deny
-Deny from all
-Satisfy all
-</Files>
-
 ErrorDocument 410 /index.php
 ErrorDocument 500 /index.php
 ErrorDocument 403 /index.php
