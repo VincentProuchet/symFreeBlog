@@ -1,12 +1,25 @@
 # FREE BLOGGING
 
-est un back-end en REST pour un blog.
-compatible avec l'hébergement des pages perso de l'opérateur français [FREE][100]
+est un back-end en REST pour un blog compatible avec l'hébergement des pages perso de l'opérateur français [FREE][100]
 
-## Contraintes
+## L'environnement 
 
-* l'environement server n'est pas modifiable
-* php 5.6 
+1; le serveur fournit un php en 5.6.34
+
+1. ils nous offre nombres de variables prédéfinies par le serveur, que je n'ai pas encore réussit à configurer dans mon serveur de test, je ne suis pas encore un gourout PHP.
+
+1. une configuration proche est disponible dans le fichier free_blogging.ini.
+Il vous est cependant inutile de vous torturer à l'utiliser car vous pourrez faire les modifications 
+des appels de fonctions désactivées avant l'upload.
+
+1. Je publirais une distribution contenant tout, y comprit ce que l'ont trouve dans le dossier vendor.
+	J'ai crée une abstraction supplémentaire que je compte bien ajouter directement à une version de symfony.
+
+Avouez que ce serait moins amusant si il n'y avait pas un peu de challenge.:stuck_out_tongue_winking_eye:
+### Contraintes
+
+l'environement server n'est pas modifiable
+
 <details>
  <summary> les fonctions php suivantes sont bloquées : </summary>
  
@@ -28,9 +41,9 @@ compatible avec l'hébergement des pages perso de l'opérateur français [FREE][
 [Source dans les pages d'aides de FREE][101]
 </details>
 <details><summary>  problème de POST </summary>
-    Il est impossible d'utiliser les requêtes POST en RAW.
-Car celà provoque l'affichage d'une erreur serveur lié à la deprecation de la fonctionnalité d'auto-remplissage des post raw avec un body vides, erreur qui apparait même quand la requête à un body non vide.
-les autre requêtes GET, PUT, PATCH, DELETE ne sont pas affectées par ce problème n'est qu'une erreur de configuration du serveur, erreur pardonnable, les API REST n'étaient pas à la mode lors de la mise en ligne des serveurs.
+    Il est impossible d'utiliser les requêtes POST en RAW (donc pas de corps en Json).
+Celà provoque l'affichage d'une erreur serveur lié à la déprecation d'une fonctionnalitée de php.
+Les autre requêtes GET, PUT, PATCH, DELETE ne sont pas affectées par ce problème qui n'est qu'une erreur de configuration du serveur, erreur pardonnable, les API REST n'étaient pas à la mode lors de la mise en ligne des serveurs.
 
 celà pourrait être corrigé en ajoutant la ligne 
 always_populate_raw_post_data = -1
@@ -38,23 +51,13 @@ dans le php.ini du serveur et un redémarrage.
 Mais le esrvice de gestion des pages persos de FREE ne répond pas au demandes des utilisateurs on vas devoir se passer de cette solution.
 </details>
 
-## L'environement 
 
-1. le service de FREE nous offre nombres de variables prédéfinies par le serveur, que je n'ai pas encore réussit à configurer dans mon serveur de test.
-1. une configuration proche est disponible dans le fichier free_blogging.ini.
-Il vous est cependant inutile de vous torturer à l'utiliser car vous pourrez faire les modifications 
-des appels de fonctions désactivées avant l'upload.
-	j'écrirais la procédure plus tard vous verrez c'est plutôt simple
-c'est juste l'introduction d'une abstraction supplémentaire que je compte bien ajouter directement à une version de symfony.
-
-Avouez que ce serait moins amusant si il n'y avait pas un peu de challenge.:stuck_out_tongue_winking_eye:
 
 ## Framework
 
 Notre petit outil de blogging utiliserat Symfony en 3.4 que vous pouvez trouver ici :<br />
-plus précisément le symfony standard edition qui vous créer un projet symfony pré-configuré ce qui est bien pratique
-
-
+plus précisément le symfony standard edition qui créer un projet symfony pré-configuré ce qui est bien pratique.
+<br>
 le site du framework est ici :
 [pour son aide en ligne][1]
 
@@ -101,6 +104,8 @@ Symfony Standard Edition est configuré avec les éléments suivants par défaut
 
 Toutes les librairies et les bundles sont distribués sous les licences MIT ou BSD
 
+<!-- liens Framework Symfony standard -->
+
 [1]:  https://symfony.com/doc/3.4/setup.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
 [7]:  https://symfony.com/doc/3.4/doctrine.html
@@ -110,7 +115,8 @@ Toutes les librairies et les bundles sont distribués sous les licences MIT ou B
 [11]: https://symfony.com/doc/3.4/logging.html
 [13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
 [14]: https://symfony.com/doc/current/setup/built_in_web_server.html
-[15]: https://symfony.com/doc/current/setup.html
+
+<!-- Mes liens -->
 
 [100]: https://www.free.fr
 [101]: https://assistance.free.fr/articles/pages-perso-php-et-fonctions-desactivees-chez-free-653
