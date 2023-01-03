@@ -4,7 +4,7 @@ est un back-end en REST pour un blog compatible avec l'hébergement des pages pe
 
 ## L'environnement 
 
-1; le serveur fournit un php en 5.6.34
+1. le serveur fournit un php en 5.6.34
 
 1. ils nous offre nombres de variables prédéfinies par le serveur, que je n'ai pas encore réussit à configurer dans mon serveur de test, je ne suis pas encore un gourout PHP.
 
@@ -15,7 +15,6 @@ des appels de fonctions désactivées avant l'upload.
 1. Je publirais une distribution contenant tout, y comprit ce que l'ont trouve dans le dossier vendor.
 	J'ai crée une abstraction supplémentaire que je compte bien ajouter directement à une version de symfony.
 
-Avouez que ce serait moins amusant si il n'y avait pas un peu de challenge.:stuck_out_tongue_winking_eye:
 ### Contraintes
 
 l'environement server n'est pas modifiable
@@ -51,6 +50,7 @@ dans le php.ini du serveur et un redémarrage.
 Mais le esrvice de gestion des pages persos de FREE ne répond pas au demandes des utilisateurs on vas devoir se passer de cette solution.
 </details>
 
+Avouez que ce serait moins amusant si il n'y avait pas un peu de challenge.:stuck_out_tongue_winking_eye:
 
 
 ## Framework

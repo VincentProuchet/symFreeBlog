@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityNotFoundException;
 
 /**
  *
@@ -18,29 +19,21 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 class ArticleServiceImpl implements ArticleService
 {
+
     /**
-     * 
+     *
      * @var EntityManagerInterface
      */
     private $em;
-    /**
-     * 
-     * @var string
-     */
-    private $articleClass = Article::class;
-    /**
-     * 
-     * @var string
-     */
-    private $userClass = User::class;
 
     /**
-     * 
+     *
      * @var ObjectRepository
      */
     private $articleRepo;
+
     /**
-     * 
+     *
      * @var ObjectRepository
      */
     private $userRepo;
@@ -48,13 +41,14 @@ class ArticleServiceImpl implements ArticleService
     /**
      * Constructor
      * autowwired
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
-        $this->articleRepo = $entityManager->getRepository($this->articleClass);
-        $this->userRepo = $entityManager->getRepository($this->userClass);
+        $this->articleRepo = $entityManager->getRepository(Article::class);
+        $this->userRepo = $entityManager->getRepository(User::class);
     }
 
     /**
@@ -74,7 +68,11 @@ class ArticleServiceImpl implements ArticleService
      */
     public function getOne($id = 0)
     {
-        return $this->articleRepo->find($id);
+        $response = $this->articleRepo->find($id);
+        if (is_null($response)) {
+            throw new EntityNotFoundException("Article non trouvé");
+        }
+        return $response;
     }
 
     /**
@@ -107,13 +105,16 @@ class ArticleServiceImpl implements ArticleService
      * @see \AppBundle\Service\ArticleService::update()
      */
     public function update(Article $a)
-    {   
-        $existing = $this->articleRepo->find($a->getId());
+    {
+        $existing = $this->getOne($a->getId());
+        // controle l'intégrité des données
+        // il faut le faire avant toutes altération d'une entitées déjà persisté
+        // sinon le prochain flush risquerait de valider de mauvaises données
+        $this->validArticle($a);
+        
         $existing->setTitle($a->getTitle());
-        $existing->setText($a->getText());    
-        // controle 'intégrité des données
-        $this->validArticle($existing);
-        // flush sauvegarde les modification faites sur les objets 
+        $existing->setText($a->getText());
+        // flush sauvegarde les modification faites sur les objets
         // associés à la base de données
         $this->em->flush($existing);
         return $existing;
@@ -125,9 +126,7 @@ class ArticleServiceImpl implements ArticleService
      * @see \AppBundle\Service\ArticleService::getLast()
      */
     public function getLast()
-    {
-        
-    }
+    {}
 
     /**
      * (non-PHPdoc)
@@ -151,10 +150,10 @@ class ArticleServiceImpl implements ArticleService
     private function validArticle(Article $a)
     {
         if (is_null($a->getTitle())) {
-            return false;
+            throw new \Exception("l'article na pas de titre");
         }
         if (is_null($a->getText())) {
-            return false;
+            throw new \Exception("l'article na pas de texte");
         }
     }
 
@@ -163,7 +162,7 @@ class ArticleServiceImpl implements ArticleService
         $user = $this->em->find(User::class, $article->getAuthor()
             ->getId());
         if (is_null($user)) {
-            // throw exception
+            throw new \Exception("l'article doit avoir un autheur");
         }
         return $user;
     }
