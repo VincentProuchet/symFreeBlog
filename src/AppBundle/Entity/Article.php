@@ -32,7 +32,8 @@ class Article
     private $title = null;
 
     /**
-     * * @ORM\Column(type="text")
+     *
+     * @ORM\Column(type="text")
      *
      * @var string
      */
@@ -51,7 +52,6 @@ class Article
      * @var User
      */
     private $author = null;
-
 
     public function __construct()
     {
