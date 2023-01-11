@@ -30,7 +30,7 @@ if (PHP_VERSION_ID < 80000) {
             {
                 // get rid of phpvfscomposer:// prefix for __FILE__ & __DIR__ resolution
                 $opened_path = substr($path, 17);
-                $this->realpath =\Utility\FFF::realpath($opened_path) ?: $opened_path;
+                $this->realpath =\Utility\FFF::\Utility\FFF::realpath($opened_path) ?: $opened_path;
                 $opened_path = $this->realpath;
                 $this->handle = fopen($this->realpath, $mode);
                 $this->position = 0;
