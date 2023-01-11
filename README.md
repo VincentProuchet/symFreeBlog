@@ -2,6 +2,12 @@
 
 est un back-end en REST pour un blog compatible avec l'hébergement des pages perso de l'opérateur français [FREE][100]
 
+
+## conditions de développement
+
+Quand j'ai le temps, je suis aussi en train de porter mes connaissances sur les API Rest vers C# et le .Net ce qui est prioritaire pour des raisons personnelles.
+
+
 ## L'environnement 
 
 1. le serveur fournit un php en 5.6.34
@@ -55,12 +61,11 @@ Avouez que ce serait moins amusant si il n'y avait pas un peu de challenge.:stuc
 
 ## Framework
 
-Notre petit outil de blogging utiliserat Symfony en 3.4 que vous pouvez trouver ici :<br />
+Notre petit outil de blogging utilise Symfony en 3.4 que vous pouvez trouver ici :<br />
 plus précisément le symfony standard edition qui créer un projet symfony pré-configuré ce qui est bien pratique.
 <br>
 le site du framework est ici :
 [pour son aide en ligne][1]
-
 
 ### Configuration du Framework 
 Symfony Standard Edition est configuré avec les éléments suivants par défaut:
@@ -104,7 +109,18 @@ Symfony Standard Edition est configuré avec les éléments suivants par défaut
 
 Toutes les librairies et les bundles sont distribués sous les licences MIT ou BSD
 
-<!-- liens Framework Symfony standard -->
+
+### Adaptation du framework
+ 
+ Le framework est modifié pour qu'il n'appelle pas directement les fonctions désactivées par le fournisseur de service.
+ Pour celà j'ai crée une la classe FFF (Oui je compte la renommer) qui superpose une couche d'abstraction suplémentaire.
+ La classe est injectée par un require directement dans index.php et bin/console
+ les appels de fonctions sont remplacés en les préfixant de : **\Utility\FFF::**
+ comme il n'existe pas encore de distribution de symfony 3.4 avec ses modifications il faut le faire soit-même 
+ par une search&replace (merci eclipse).
+ Ce ne serat plus utile lorsque j'aurais publié une archive du projet incluant les dépendences modifiées.
+ 
+ <!-- liens Framework Symfony standard -->
 
 [1]:  https://symfony.com/doc/3.4/setup.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html

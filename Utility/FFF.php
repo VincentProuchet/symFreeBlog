@@ -13,7 +13,7 @@ namespace Utility;
  * les noms sont identitques
  * 
  * lorsque vous aurez une erreur  invalid argument
- * faites le search and replace de umask par FFF::umask
+ * faites le search and replace de umask par self::umask
  * pour une raison inconnue son erreur n'indique pas qu'il est désactivé
  *
  * lorsque vous les aurez toutes remplacées
@@ -45,9 +45,9 @@ class FFF
      */
     public static function realpath($path)
     {
-        switch (FFF::$MODE) {
-            case FFF::MODE_FREE:
-                return FFF::realpathV($path);
+        switch (self::$MODE) {
+            case self::MODE_FREE:
+                return self::realpathV($path);
                 break;
             default:
                 return realpath($path);
@@ -61,8 +61,8 @@ class FFF
      */
     public static function putenv($var)
     {
-        switch (FFF::$MODE) {
-            case FFF::MODE_FREE:
+        switch (self::$MODE) {
+            case self::MODE_FREE:
                 $args = explode('=', $var, 2);
                 $_ENV[$args[0]] = $args[1];
                 break;
@@ -79,8 +79,8 @@ class FFF
      */
     public static function ini_set($varname, $newvalue)
     {
-        switch (FFF::$MODE) {
-            case FFF::MODE_FREE:
+        switch (self::$MODE) {
+            case self::MODE_FREE:
                 return ini_get($varname);
                 break;
             default:
@@ -96,8 +96,8 @@ class FFF
      */
     public static function setlocale($category, $locale)
     {
-        switch (FFF::$MODE) {
-            case FFF::MODE_FREE:
+        switch (self::$MODE) {
+            case self::MODE_FREE:
                 return false;
                 break;
             default:
@@ -110,10 +110,10 @@ class FFF
      * @param number $mask
      * @return number
      */
-    public static function umask($mask = null)
+    public static function umask($mask = 0)
     {
-        switch (FFF::$MODE) {
-            case FFF::MODE_FREE:
+        switch (self::$MODE) {
+            case self::MODE_FREE:
                 return 0;
                 break;
             default:
@@ -129,8 +129,8 @@ class FFF
      */
     public static function rmdir($directory, $context = null)
     {
-        switch (FFF::$MODE) {
-            case FFF::MODE_FREE:
+        switch (self::$MODE) {
+            case self::MODE_FREE:
                 return false;
                 break;
             default:
@@ -150,7 +150,7 @@ class FFF
         // Cleaning path regarding OS
         $path = mb_ereg_replace('\\\\|/', DIRECTORY_SEPARATOR, $path, 'msr');
         // Check if path start with a separator (UNIX)
-        $startWithSeparator = $path[0] === DIRECTORY_SEPARATOR;
+        $startWithSeparator = ($path[0] === DIRECTORY_SEPARATOR);
         $matches = '';
         // Check if start with drive letter
         preg_match('/^[a-z]:/', $path, $matches);

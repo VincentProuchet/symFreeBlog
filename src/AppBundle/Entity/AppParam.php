@@ -62,8 +62,20 @@ class AppParam
      * @var \DateTime
      */
     private $dateValue;
+/**
+ * paramétres connus de l'application 
+ * @var string $init
+ * @var string $patrick
+ */
+    const init = "init", patrick = "patrick";
 
+    public static function makeWname($name =""){
+        $new = new AppParam();
+        $new->setName($name);
+        return $new;
+    }
     /**
+     *
      * @return number
      */
     public function getId()
@@ -72,6 +84,7 @@ class AppParam
     }
 
     /**
+     *
      * @return string
      */
     public function getName()
@@ -80,6 +93,7 @@ class AppParam
     }
 
     /**
+     *
      * @return boolean
      */
     public function isBoolValue()
@@ -88,6 +102,7 @@ class AppParam
     }
 
     /**
+     *
      * @return number
      */
     public function getIntValue()
@@ -96,6 +111,7 @@ class AppParam
     }
 
     /**
+     *
      * @return number
      */
     public function getFloatValue()
@@ -104,6 +120,7 @@ class AppParam
     }
 
     /**
+     *
      * @return string
      */
     public function getTextValue()
@@ -112,6 +129,7 @@ class AppParam
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getDateValue()
@@ -120,6 +138,7 @@ class AppParam
     }
 
     /**
+     *
      * @param number $id
      */
     public function setId($id)
@@ -128,6 +147,7 @@ class AppParam
     }
 
     /**
+     *
      * @param string $name
      */
     public function setName($name)
@@ -136,6 +156,7 @@ class AppParam
     }
 
     /**
+     *
      * @param boolean $boolValue
      */
     public function setBoolValue($boolValue)
@@ -144,6 +165,7 @@ class AppParam
     }
 
     /**
+     *
      * @param number $intValue
      */
     public function setIntValue($intValue)
@@ -152,6 +174,7 @@ class AppParam
     }
 
     /**
+     *
      * @param number $floatValue
      */
     public function setFloatValue($floatValue)
@@ -160,6 +183,7 @@ class AppParam
     }
 
     /**
+     *
      * @param string $textValue
      */
     public function setTextValue($textValue)
@@ -168,6 +192,7 @@ class AppParam
     }
 
     /**
+     *
      * @param \DateTime $dateValue
      */
     public function setDateValue($dateValue)
@@ -179,6 +204,5 @@ class AppParam
      */
     public function __construct()
     {}
-    
 }
 
