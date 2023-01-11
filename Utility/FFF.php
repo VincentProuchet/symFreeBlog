@@ -1,8 +1,6 @@
 <?php
 namespace Utility;
 
-use Symfony\Component\DomCrawler\Image;
-
 /**
  * Free forbiden functions
  *
@@ -46,7 +44,7 @@ class FFF
      * @param string $path
      * @return string
      */
-    public static function realpath(&$path)
+    public static function realpath($path)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -61,7 +59,7 @@ class FFF
      *
      * @param mixed $var
      */
-    public static function putenv(&$var)
+    public static function putenv($var)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -79,7 +77,7 @@ class FFF
      * @param string $newvalue
      * @return string
      */
-    public static function ini_set(&$varname, &$newvalue)
+    public static function ini_set($varname, $newvalue)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -96,7 +94,7 @@ class FFF
      * @param string $locale
      * @return boolean
      */
-    public static function setlocale(&$category, &$locale, &$_ = null)
+    public static function setlocale($category, $locale, $_ = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -112,7 +110,7 @@ class FFF
      * @param number $mask
      * @return number
      */
-    public static function umask(&$mask = null)
+    public static function umask($mask = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -129,7 +127,7 @@ class FFF
      * @param mixed $context
      * @return boolean
      */
-    public static function rmdir(&$directory, &$context = null)
+    public static function rmdir($directory, $context = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -145,7 +143,7 @@ class FFF
      * @param number $seconds
      * @return boolean
      */
-    public static function set_time_limit(&$seconds = 0)
+    public static function set_time_limit($seconds = 0)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -176,7 +174,7 @@ class FFF
      * @param string $mode
      * @return string
      */
-    public static function php_uname(&$mode = null)
+    public static function php_uname($mode = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -222,7 +220,7 @@ class FFF
      * @param string $library
      * @return boolean
      */
-    public static function dl(&$library = "")
+    public static function dl($library = "")
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -238,7 +236,7 @@ class FFF
      * @param string $varname
      * @param string $newvalue
      */
-    public static function ini_alter(&$varname, &$newvalue)
+    public static function ini_alter($varname, $newvalue)
     {
         self::ini_set($varname, $newvalue);
     }
@@ -246,14 +244,16 @@ class FFF
     /**
      *
      * @param string $varname
+     * @return void
      */
-    public static function ini_restore(&$varname)
+    public static function ini_restore($varname)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
+                return;
                 break;
             default:
-                ini_restore($varname);
+                return ini_restore($varname);
         }
     }
 
@@ -278,7 +278,7 @@ class FFF
      * @param string $link
      * @return boolean
      */
-    public static function link(&$target,&$link)
+    public static function link($target, $link)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -294,7 +294,7 @@ class FFF
      * @param string $cmd
      * @return boolean|string
      */
-    public static function shell_exec(&$cmd)
+    public static function shell_exec($cmd)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -305,8 +305,8 @@ class FFF
         }
     }
 
-  
     /**
+     *
      * @param string $cmd
      * @param array $descriptorspec
      * @param array $pipes
@@ -315,14 +315,14 @@ class FFF
      * @param array $other_options
      * @return boolean|resource
      */
-    public static function proc_open(&$cmd, array &$descriptorspec, array &$pipes, &$cwd = null, array &$env = null, array &$other_options = null)
+    public static function proc_open($cmd, array $descriptorspec, array $pipes, $cwd = null, array $env = null, array $other_options = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
                 return false;
                 break;
             default:
-                return proc_open($cmd, $descriptorspec, $pipes, $cwd , $env , $other_options );
+                return proc_open($cmd, $descriptorspec, $pipes, $cwd, $env, $other_options);
         }
     }
 
@@ -346,7 +346,7 @@ class FFF
      * @param number $seconds
      * @return number
      */
-    public static function sleep(&$seconds = 0)
+    public static function sleep($seconds = 0)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -361,7 +361,7 @@ class FFF
      *
      * @param int $micro_seconds
      */
-    public static function usleep(&$micro_seconds)
+    public static function usleep($micro_seconds)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -377,7 +377,7 @@ class FFF
      * @param string $new_include_path
      * @return boolean|string
      */
-    public static function set_include_path(&$new_include_path)
+    public static function set_include_path($new_include_path)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -408,7 +408,7 @@ class FFF
      * @param int $return_var
      * @return string
      */
-    public static function exec(&$command, &$output = null, &$return_var = null)
+    public static function exec($command, &$output = null, &$return_var = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -424,14 +424,14 @@ class FFF
      * @param string $command
      * @param mixed $return_var
      */
-    public static function passthru(&$command, &$return_var = null)
+    public static function passthru($command, &$return_var = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
                 return;
                 break;
             default:
-                passthru($command, &$return_var);
+                passthru($command, $return_var);
         }
     }
 
@@ -441,7 +441,7 @@ class FFF
      * @param mixed $return_var
      * @return boolean|string
      */
-    public static function system(&$command, &$return_var = null)
+    public static function system($command, &$return_var = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -458,7 +458,7 @@ class FFF
      * @param string $mode
      * @return boolean|resource
      */
-    public static function popen(&$command, &$mode)
+    public static function popen($command, $mode)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -474,7 +474,7 @@ class FFF
      * @param resource $handle
      * @return number
      */
-    public static function pclose(&$handle)
+    public static function pclose($handle)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -505,11 +505,11 @@ class FFF
      * @param resource $link_identifier
      * @return string|resource
      */
-    public static function amysql_list_dbs(&$link_identifier = null)
+    public static function amysql_list_dbs($link_identifier = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
-                return "";
+                return false;
                 break;
             default:
                 return mysql_list_dbs($link_identifier);
@@ -537,7 +537,7 @@ class FFF
      * @param mixed $group
      * @return boolean
      */
-    public static function chgrp(&$filename, &$group)
+    public static function chgrp($filename, $group)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -553,7 +553,7 @@ class FFF
      * @param string $directory
      * @return boolean|number
      */
-    public static function disk_total_space(&$directory)
+    public static function disk_total_space($directory)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -569,7 +569,7 @@ class FFF
      * @param string $directory
      * @return boolean|number
      */
-    public static function disk_free_space(&$directory)
+    public static function disk_free_space($directory)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -587,7 +587,7 @@ class FFF
      * @param int $facility
      * @return boolean
      */
-    public static function openlog(&$ident, &$option, &$facility)
+    public static function openlog($ident, $option, $facility)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -619,7 +619,7 @@ class FFF
      * @param string $message
      * @return boolean
      */
-    public static function syslog(&$priority, &$message)
+    public static function syslog($priority, $message)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -637,7 +637,7 @@ class FFF
      * @param int $wouldblock
      * @return boolean
      */
-    public static function flock(&$handle, &$operation, &$wouldblock = null)
+    public static function flock($handle, $operation, $wouldblock = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -654,7 +654,7 @@ class FFF
      * @param int $backlog
      * @return boolean|resource
      */
-    public static function socket_create_listen(&$port, &$backlog = null)
+    public static function socket_create_listen($port, $backlog = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -670,7 +670,7 @@ class FFF
      * @param resource $socket
      * @return boolean|resource
      */
-    public static function socket_accept(&$socket)
+    public static function socket_accept($socket)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -687,7 +687,7 @@ class FFF
      * @param int $backlog
      * @return boolean
      */
-    public static function socket_listen(&$socket, &$backlog = null)
+    public static function socket_listen($socket, $backlog = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -704,7 +704,7 @@ class FFF
      * @param string $link
      * @return boolean
      */
-    public static function symlink(&$target, &$link)
+    public static function symlink($target, $link)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
@@ -723,7 +723,7 @@ class FFF
      * @param int $ignore_transparent
      * @return boolean|resource
      */
-    public static function imagerotate(&$image, &$angle, &$bgd_color, &$ignore_transparent = null)
+    public static function imagerotate($image, $angle, $bgd_color, $ignore_transparent = null)
     {
         switch (self::$MODE) {
             case self::MODE_FREE:
