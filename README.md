@@ -12,7 +12,7 @@ Quand j'ai le temps, je suis aussi en train de porter mes connaissances sur les 
 
 1. le serveur fournit un php en 5.6.34
 
-1. ils nous offre nombres de variables prédéfinies par le serveur, que je n'ai pas encore réussit à configurer dans mon serveur de test, je ne suis pas encore un gourout PHP.
+1. ils nous offre nombres de variables prédéfinies par le serveur, que je n'ai pas encore réussit à configurer dans mon serveur de test, je ne suis pas encore un gourou PHP.
 
 1. une configuration proche est disponible dans le fichier free_blogging.ini.
 Il vous est cependant inutile de vous torturer à l'utiliser car vous pourrez faire les modifications 
