@@ -27,7 +27,7 @@ class DebugLoad
      *
      * @var string
      */
-    const dir_Symfony_debug = "./.../../vendor/symfony/symfony/src/Symfony/Component/Debug/";
+    const dir_Symfony_debug = "/.../../vendor/symfony/symfony/src/Symfony/Component/Debug/";
 
     /**
      * sous-répertoir Exception
