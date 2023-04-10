@@ -73,5 +73,8 @@
 			"dev-master" : "3.4-dev"
 		}
 	},
-	"minimum-stability" : "stable"
+	"minimum-stability" : "stable",
+	"support" : {
+		"source" : "https://github.com/VincentProuchet/symFreeBlog"
+	}
 }

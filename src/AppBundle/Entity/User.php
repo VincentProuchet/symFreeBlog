@@ -6,13 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\dto\UserDTO;
 
+
 /**
  *
  * @author Vincent
  *@ORM\Entity
  *@ORM\Table(name= "users")
  */
-class User
+class User extends UserCredential
 {
 
     /**
@@ -44,6 +45,13 @@ class User
      * @var \DateTime
      */
     private $birth = null;
+    /**
+     *
+     * @ORM\Column(type="string", length=200, unique=true, nullable = false)
+     * @var string
+     */
+    private $email ="";
+    
 
     /**
      *

@@ -200,9 +200,6 @@ class AppParam
         $this->dateValue = $dateValue;
     }
 
-    /**
-     */
-    public function __construct()
-    {}
+   
 }
 

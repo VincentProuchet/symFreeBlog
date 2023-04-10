@@ -4,7 +4,10 @@ namespace Utility;
 use Symfony\Component\Validator\Constraints\IsNull;
 
 /**
- *
+ * classe de chargement des 
+ * classes d'erreur de symfony
+ * je n,'ai aucune explication de pourquoi Symfony
+ * n'est pas foutu de charger ses propres classes d'erreurs 
  * @author Vincent
  *        
  */
@@ -24,7 +27,7 @@ class DebugLoad
      *
      * @var string
      */
-    const dir_Symfony_debug = "../vendor/symfony/symfony/src/Symfony/Component/Debug/";
+    const dir_Symfony_debug = "./.../../vendor/symfony/symfony/src/Symfony/Component/Debug/";
 
     /**
      * sous-répertoir Exception
