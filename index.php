@@ -19,4 +19,4 @@ require_once $utility_dir.'DebugLoad.php';
 
 DebugLoad::loadAll(__DIR__);
 
-include 'web/app_dev.php';
+include 'web/app.php';

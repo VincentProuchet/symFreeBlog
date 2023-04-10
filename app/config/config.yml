@@ -1,14 +1,3 @@
-parameters:
-    env: dev_
-# importing other yml files
-# ici le env influe sur le fichier chargé
-# assurez-vous qu'il existe
-# vous pouvez retirer l'influence du paramétre env
-imports:
-    - { resource: %env%parameters.yml }
-    - { resource: %env%security.yml }
-    - { resource: %env%services.yml }
-
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 
