@@ -172,5 +172,33 @@ class User extends UserCredential
         $o->setBirth(DTO::convertDateTime($a->birth));
         return $o;
     }
+    /**
+     * (non-PHPdoc)
+     *
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->getUsername(),
+            $this->getPassword()
+        ]);
+    }
+    
+    /**
+     * (non-PHPdoc)
+     *
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        parent::unserialize($serialized);
+        list(
+            $this->id,
+            )= unserialize($serialized,['allowed_classes'=> false]);
+    }
+    
+    
 }
 

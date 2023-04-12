@@ -28,7 +28,7 @@ class AppParamRepository extends EntityRepository
     public function findByName($name = "")
     {
         $result = $this->getEntityManager()
-            ->createQuery('SELECT p from AppBundle\ENtity\AppParam p WHERE p.name = :name ')
+            ->createQuery('SELECT p from AppBundle\Entity\AppParam p WHERE p.name = :name ')
             ->setParameter([
             "name" => $name
         ])

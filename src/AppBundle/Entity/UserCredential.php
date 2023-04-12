@@ -33,6 +33,17 @@ class UserCredential implements UserInterface, \Serializable
      */
     private $lastChanged;
     
+    /**
+     * @ORM\Column(type="boolean")
+     * @var boolean
+     */
+    private $isActive = true;
+    
+    /**
+     * 
+     * @var array
+     */
+    private $roles = ['ROLE_ADMIN'];
     
 
     /**
@@ -82,6 +93,7 @@ class UserCredential implements UserInterface, \Serializable
     {
         $this->lastChanged = $lastChanged;
     }
+    
 
     /**
      */
@@ -94,7 +106,9 @@ class UserCredential implements UserInterface, \Serializable
      * @see \Symfony\Component\Security\Core\User\UserInterface::getPassword()
      */
     public function getPassword()
-    {}
+    {
+        return $this->password;
+    }
 
     /**
      * (non-PHPdoc)
@@ -102,7 +116,9 @@ class UserCredential implements UserInterface, \Serializable
      * @see \Symfony\Component\Security\Core\User\UserInterface::eraseCredentials()
      */
     public function eraseCredentials()
-    {}
+    {
+        $this->password = null;
+    }
 
     /**
      * (non-PHPdoc)
@@ -110,7 +126,9 @@ class UserCredential implements UserInterface, \Serializable
      * @see \Symfony\Component\Security\Core\User\UserInterface::getSalt()
      */
     public function getSalt()
-    {}
+    {
+        return null;
+    }
 
     /**
      * (non-PHPdoc)
@@ -118,7 +136,18 @@ class UserCredential implements UserInterface, \Serializable
      * @see \Symfony\Component\Security\Core\User\UserInterface::getRoles()
      */
     public function getRoles()
-    {}
+    {
+        return $this->roles;
+    }
+    
+    /**
+     * 
+     */
+    public function setRoles(array $roles){
+        if(count($this->role)==0){
+            $this->roles = $roles;
+        }
+    }
 
     /**
      * (non-PHPdoc)
@@ -126,7 +155,9 @@ class UserCredential implements UserInterface, \Serializable
      * @see \Symfony\Component\Security\Core\User\UserInterface::getUsername()
      */
     public function getUsername()
-    {}
+    {
+        return $this->username;
+    }
 
     /**
      * (non-PHPdoc)
@@ -134,7 +165,12 @@ class UserCredential implements UserInterface, \Serializable
      * @see \Serializable::serialize()
      */
     public function serialize()
-    {}
+    {
+        return serialize([
+            $this->username,
+            $this->password
+        ]);
+    }
 
     /**
      * (non-PHPdoc)
@@ -142,6 +178,11 @@ class UserCredential implements UserInterface, \Serializable
      * @see \Serializable::unserialize()
      */
     public function unserialize($serialized)
-    {}
+    {
+        list(
+            $this->username,
+            $this->password
+            )= unserialize($serialized,['allowed_classes'=> false]);
+    }
 }
 
