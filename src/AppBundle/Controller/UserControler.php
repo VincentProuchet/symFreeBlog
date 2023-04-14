@@ -32,7 +32,7 @@ class UserControler extends Controller
     public function getAll()
     {
         // The second parameter is used to specify on what object the role is tested.
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+       // $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
         
         $data = $this->userService->getUsers();
         if (is_null($data)) {

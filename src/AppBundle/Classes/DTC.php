@@ -1,16 +1,16 @@
 <?php
-namespace AppBundle\Entity;
+namespace AppBundle\Classes;
 
 
 
 
 /**
- * 
- *
+ * Date Transfert converter 
+ * convertisseurs de dates entre DTO et les objets Php
  * @author Vincent
  *        
  */
-class DTO
+class DTC
 {
 
     private static $dateTimeFormat = "Y-m-d H:i:s.u";
@@ -24,7 +24,7 @@ class DTO
     {
         
         try {            
-            return \DateTimeImmutable::createFromFormat(DTO::$dateTimeFormat ,$a->date,new \DateTimeZone(DTO::$StoringTimezone));            
+            return \DateTimeImmutable::createFromFormat(DTC::$dateTimeFormat ,$a->date,new \DateTimeZone(DTC::$StoringTimezone));            
         } catch (\Exception $e) {
             return new \DateTime();
         }

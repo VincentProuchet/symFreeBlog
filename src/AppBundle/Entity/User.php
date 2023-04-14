@@ -4,26 +4,21 @@ namespace AppBundle\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Classes\DTC;
 use AppBundle\dto\UserDTO;
 
 
+
 /**
- *
+ * Entité d'utilisateurs 
  * @author Vincent
  *@ORM\Entity
+ *@ORM\InheritanceType("SINGLE_TABLE")
  *@ORM\Table(name= "users")
  */
 class User extends UserCredential
 {
 
-    /**
-     *
-     * @ORM\Column(type = "integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @var integer
-     */
-    private $id = 0;
 
     /**
      *
@@ -59,22 +54,15 @@ class User extends UserCredential
      * @var Article
      */
     private $articles;
+     
+ 
 
     public function __construct()
     {
         $this->articles = new ArrayCollection();
     }
 
-    /**
-     *
-     * @return number
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
+   /**
      *
      * @return string
      */
@@ -108,15 +96,6 @@ class User extends UserCredential
     public function getArticles()
     {
         return $this->articles;
-    }
-
-    /**
-     *
-     * @param number $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -169,7 +148,7 @@ class User extends UserCredential
         $o->setId($a->id);
         $o->setName($a->name);
         $o->setFirstName($a->firstName);
-        $o->setBirth(DTO::convertDateTime($a->birth));
+        $o->setBirth(DTC::convertDateTime($a->birth));
         return $o;
     }
     /**
@@ -180,7 +159,7 @@ class User extends UserCredential
     public function serialize()
     {
         return serialize([
-            $this->id,
+            $this->getId(),
             $this->getUsername(),
             $this->getPassword()
         ]);
@@ -195,9 +174,10 @@ class User extends UserCredential
     {
         parent::unserialize($serialized);
         list(
-            $this->id,
-            )= unserialize($serialized,['allowed_classes'=> false]);
+            
+            )= unserialize($serialized);
     }
+
     
     
 }

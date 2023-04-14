@@ -3,14 +3,24 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 /**
- *
+ * J'ai préféré séparer la classe User en deux
+ * celle-ci est la superclass 
+ * contenant tous le lien avec la sécurité
+ * 
  * @author Vincent
  * @ORM\MappedSuperclass
- * 
  */
 class UserCredential implements UserInterface, \Serializable
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type = "integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @var integer
+     */
+    private $id = 0 ;
     /**
      * @ORM\Column(type="string", length=200 , unique = true , nullable  = false )
      * @var string
@@ -39,12 +49,54 @@ class UserCredential implements UserInterface, \Serializable
      */
     private $isActive = true;
     
+  
     /**
-     * 
-     * @var array
+     * Les utilisateur peuvent avoir plusieurs roles
+     * et les roles peuvent avoir plusieurs utilisateurs
+     * @ORM\ManyToMany(targetEntity = "Role")
+     * @ORM\JoinTable( name="users_roles",
+     *           joinColumns={@ORM\JoinColumn(name="user_id",referencedColumnName="id")},
+     *           inverseJoinColumns={@ORM\JoinColumn(name="role_id",referencedColumnName="id")}
+     *      )
+     *
+     * @var Collection
      */
-    private $roles = ['ROLE_ADMIN'];
     
+    private $roles ;
+    
+    
+  
+    /**
+     * @return number
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param number $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param boolean $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
 
     /**
      * @return string
@@ -167,6 +219,7 @@ class UserCredential implements UserInterface, \Serializable
     public function serialize()
     {
         return serialize([
+            $this->id,
             $this->username,
             $this->password
         ]);
@@ -180,9 +233,10 @@ class UserCredential implements UserInterface, \Serializable
     public function unserialize($serialized)
     {
         list(
+            $this->id,
             $this->username,
             $this->password
-            )= unserialize($serialized,['allowed_classes'=> false]);
+            )= unserialize($serialized);
     }
 }
 
