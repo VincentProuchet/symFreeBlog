@@ -1,11 +1,34 @@
 /phpunit.xml
 /var/*
+# dossier tep pour les app php
 /vendor/
-!/vendor/Symfony/../ErrorHandler.php
-*.png
-*.ico
+# dossier des framework
+!/vendor/Symfony/../ErrorHandler.php  # je ne sais plus pourquoi j'ai inclut celui-là
+#### #### #### #### #### #### #### #### ####
 *.yml
-!/app/config/config.yml
-!/app/config/parameters.yml.dist
+# on exclut par défaut tous les fichiers de config
+
+# Je fournit certains fichiers
+!/app/config/parameters.yml.dist	# exemple de fichiers de paramètres 
+!/app/config/config.yml 			# fichier de configuration de base
+
+# trois environement de travails  
+!/app/config/config_dev.yml
+!/app/config/config_security.yml
+!/app/config/config_test.yml
+
+# et leurs dossiers respectifs
+!/app/config/dev/*
+!/app/config/security/*
+!/app/config/origin/*
+#### #### #### #### #### #### #### #### ####
+
 *.bkp
 *.settings
+
+# on ne veux pas des images
+*.jpeg
+*.jpg
+*.avif
+*.png
+*.ico

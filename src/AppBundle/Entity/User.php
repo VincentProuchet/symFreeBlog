@@ -18,8 +18,6 @@ use AppBundle\dto\UserDTO;
  */
 class User extends UserCredential
 {
-
-
     /**
      *
      * @ORM\Column(type="string", length=100)
@@ -54,8 +52,6 @@ class User extends UserCredential
      * @var Article
      */
     private $articles;
-     
- 
 
     public function __construct()
     {
@@ -178,7 +174,5 @@ class User extends UserCredential
             )= unserialize($serialized);
     }
 
-    
-    
 }
 

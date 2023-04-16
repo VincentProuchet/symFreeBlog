@@ -30,8 +30,7 @@ class UserCredential implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=100, unique = true, nullable = true)
      * @var string
      */
-    private $username = "";    
-    
+    private $username = "";
     /**
      * @ORM\Column(type="string", length=100, nullable = false)
      * @var string  
@@ -41,15 +40,12 @@ class UserCredential implements UserInterface, \Serializable
      * @ORM\Column(type="datetime")
      * @var \DateTime
      */
-    private $lastChanged;
-    
+    private $lastChanged;    
     /**
      * @ORM\Column(type="boolean")
      * @var boolean
      */
     private $isActive = true;
-    
-  
     /**
      * Les utilisateur peuvent avoir plusieurs roles
      * et les roles peuvent avoir plusieurs utilisateurs
@@ -60,12 +56,8 @@ class UserCredential implements UserInterface, \Serializable
      *      )
      *
      * @var Collection
-     */
-    
-    private $roles ;
-    
-    
-  
+     */    
+    private $roles = [] ;
     /**
      * @return number
      */
@@ -73,7 +65,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         return $this->id;
     }
-
     /**
      * @return boolean
      */
@@ -81,7 +72,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         return $this->isActive;
     }
-
     /**
      * @param number $id
      */
@@ -89,7 +79,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         $this->id = $id;
     }
-
     /**
      * @param boolean $isActive
      */
@@ -97,7 +86,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         $this->isActive = $isActive;
     }
-
     /**
      * @return string
      */
@@ -105,7 +93,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         return $this->login;
     }
-
     /**
      * @return \DateTime
      */
@@ -113,7 +100,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         return $this->lastChanged;
     }
-
     /**
      * @param string $login
      */
@@ -121,7 +107,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         $this->login = $login;
     }
-
     /**
      * @param string $username
      */
@@ -129,7 +114,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         $this->username = $username;
     }
-
     /**
      * @param string $password
      */
@@ -137,7 +121,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         $this->password = $password;
     }
-
     /**
      * @param \DateTime $lastChanged
      */
@@ -145,13 +128,6 @@ class UserCredential implements UserInterface, \Serializable
     {
         $this->lastChanged = $lastChanged;
     }
-    
-
-    /**
-     */
-    public function __construct()
-    {}
-
     /**
      * (non-PHPdoc)
      *
