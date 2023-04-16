@@ -131,7 +131,7 @@ class User extends UserCredential
     }
 
     /**
-     *
+     * Make a User entity form UserDTO
      * @param null|UserDTO $a
      * @return User
      */

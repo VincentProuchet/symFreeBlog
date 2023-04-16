@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Classes\DTC;
 use AppBundle\dto\ArticleDTO;
 
 /**
@@ -74,7 +75,7 @@ class Article
         $o->setId($a->id);
         $o->setText($a->text);
         $o->setTitle($a->title);
-        $o->setCreation(DTO::convertDateTime($a->creation));
+        $o->setCreation(DTC::convertDateTime($a->creation));
         $o->setAuthor(User::make($a->author));
         return $o;
     }

@@ -1,8 +1,8 @@
 /phpunit.xml
-/var/*
 # dossier tep pour les app php
-/vendor/
+/var/*
 # dossier des framework
+/vendor/
 !/vendor/Symfony/../ErrorHandler.php  # je ne sais plus pourquoi j'ai inclut celui-là
 #### #### #### #### #### #### #### #### ####
 *.yml
@@ -13,9 +13,9 @@
 !/app/config/config.yml 			# fichier de configuration de base
 
 # trois environement de travails  
-!/app/config/config_dev.yml
-!/app/config/config_security.yml
-!/app/config/config_test.yml
+!/app/config/config_dev.yml 		# Environement pour le développement
+!/app/config/config_security.yml 	# Environement de configuration de la sécurité du framework
+!/app/config/config_test.yml 		# Environement de test  unitaires 
 
 # et leurs dossiers respectifs
 !/app/config/dev/*
